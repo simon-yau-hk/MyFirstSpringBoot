@@ -2,6 +2,9 @@ package org.example.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "users")
@@ -19,6 +22,11 @@ public class User {
     
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+    
+    // One user can have many bags
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference("user-bags")
+    private List<Bag> bags = new ArrayList<>();
     
     // Default constructor
     public User() {
@@ -63,6 +71,25 @@ public class User {
     
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+    
+    public List<Bag> getBags() {
+        return bags;
+    }
+    
+    public void setBags(List<Bag> bags) {
+        this.bags = bags;
+    }
+    
+    // Helper methods for managing bidirectional relationships
+    public void addBag(Bag bag) {
+        bags.add(bag);
+        bag.setUser(this);
+    }
+    
+    public void removeBag(Bag bag) {
+        bags.remove(bag);
+        bag.setUser(null);
     }
     
     @Override
