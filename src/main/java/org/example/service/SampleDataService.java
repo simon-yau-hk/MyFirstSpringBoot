@@ -4,7 +4,7 @@ import org.example.entity.Bag;
 import org.example.entity.BagItem;
 import org.example.entity.User;
 import org.example.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,10 +14,14 @@ import java.util.List;
 @Service
 public class SampleDataService {
 
-    private final UserRepository userRepository;
+    private static final String SAMPLE_PASSWORD = "Password123!";
 
-    public SampleDataService(UserRepository userRepository) {
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    public SampleDataService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
  
@@ -50,7 +54,9 @@ public class SampleDataService {
     }
 
     private User createUser(String name, String email) {
-        return new User(name, email);
+        User user = new User(name, email);
+        user.setPassword(passwordEncoder.encode(SAMPLE_PASSWORD));
+        return user;
     }
 
     private void createJohnData(User john) {

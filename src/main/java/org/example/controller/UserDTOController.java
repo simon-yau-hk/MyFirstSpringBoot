@@ -6,8 +6,7 @@ import org.example.exception.ResourceNotFoundException;
 import org.example.mapper.UserMapper;
 import org.example.service.UserDTOService;
 import org.example.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +16,7 @@ import java.util.Optional;
  * UserDTO Controller - demonstrates MapStruct usage
  * This controller uses DTOs instead of entities for cleaner API responses
  */
+@PreAuthorize("isAuthenticated()")
 @RestController
 @RequestMapping("/api/v2/users")  // v2 to differentiate from original controller
 public class UserDTOController {

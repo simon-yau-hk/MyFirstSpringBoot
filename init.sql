@@ -74,6 +74,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
+  `password` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
@@ -81,11 +82,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   KEY `idx_users_name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+
+
 -- Dumping data for table springboot_db.users: ~3 rows (approximately)
-INSERT INTO `users` (`id`, `name`, `email`, `created_at`) VALUES
-	(2, 'Jane Smith', 'jane@example.com', '2025-09-25 15:05:05'),
-	(3, 'Bob Johnson', 'bob@example.com', '2025-09-25 15:05:05'),
-	(4, 'John Doe', 'john.doe@example.com', '2025-09-26 12:14:26');
+-- Sample password for all seeded users: Password123!
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `created_at`) VALUES
+	(2, 'Jane Smith', 'jane@example.com', '$2a$10$1l2vsoINZ0Px1ykTrsqZKOm5PO0sDJJ9P2eYQImGSitZj4xP4x1ZK', '2025-09-25 15:05:05'),
+	(3, 'Bob Johnson', 'bob@example.com', '$2a$10$1l2vsoINZ0Px1ykTrsqZKOm5PO0sDJJ9P2eYQImGSitZj4xP4x1ZK', '2025-09-25 15:05:05'),
+	(4, 'John Doe', 'john.doe@example.com', '$2a$10$1l2vsoINZ0Px1ykTrsqZKOm5PO0sDJJ9P2eYQImGSitZj4xP4x1ZK', '2025-09-26 12:14:26');
+
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

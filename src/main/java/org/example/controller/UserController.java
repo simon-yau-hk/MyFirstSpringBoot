@@ -2,8 +2,8 @@ package org.example.controller;
 
 import org.example.entity.User;
 import org.example.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +12,7 @@ import java.util.Optional;
 /**
  * User Controller - demonstrates dependency injection and CRUD operations
  */
+@PreAuthorize("isAuthenticated()")
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
