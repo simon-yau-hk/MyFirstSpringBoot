@@ -2,8 +2,9 @@ package org.example.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -26,7 +27,7 @@ public class User {
     // One user can have many bags
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference("user-bags")
-    private List<Bag> bags = new ArrayList<>();
+    private Set<Bag> bags = new HashSet<>();
     
     // Default constructor
     public User() {
@@ -73,11 +74,11 @@ public class User {
         this.createdAt = createdAt;
     }
     
-    public List<Bag> getBags() {
+    public Set<Bag> getBags() {
         return bags;
     }
     
-    public void setBags(List<Bag> bags) {
+    public void setBags(Set<Bag> bags) {
         this.bags = bags;
     }
     

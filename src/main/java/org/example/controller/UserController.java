@@ -17,8 +17,12 @@ import java.util.Optional;
 public class UserController {
 
     // Dependency Injection - Spring automatically injects the UserService
-    @Autowired
-    private UserService userService;
+   
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     /**
      * GET /api/users - Get all users

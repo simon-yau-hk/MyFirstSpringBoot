@@ -12,8 +12,12 @@ import java.util.Map;
 @RequestMapping("/api/sample-data")
 public class SampleDataController {
 
-    @Autowired
-    private SampleDataService sampleDataService;
+    private final SampleDataService sampleDataService;
+
+    public SampleDataController(SampleDataService sampleDataService) {
+        this.sampleDataService = sampleDataService;
+    }
+
 
     /**
      * POST /api/sample-data/create - Create sample data

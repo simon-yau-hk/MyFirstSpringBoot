@@ -15,9 +15,11 @@ import org.example.entity.User;
  */
 @Service
 public class UserService {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
   
    /**
      * Get all users from database

@@ -14,8 +14,13 @@ import java.util.List;
 @Service
 public class SampleDataService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public SampleDataService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+ 
 
     @Transactional
     public void createSampleData() {

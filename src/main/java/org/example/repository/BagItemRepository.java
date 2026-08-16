@@ -41,4 +41,6 @@ public interface BagItemRepository extends JpaRepository<BagItem, Long> {
     // Search items by name or description
     @Query("SELECT i FROM BagItem i WHERE i.name LIKE %:keyword% OR i.description LIKE %:keyword%")
     List<BagItem> searchItems(@Param("keyword") String keyword);
+
+   
 }

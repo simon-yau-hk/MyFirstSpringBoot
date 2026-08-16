@@ -1,6 +1,7 @@
 package org.example.repository;
 
 import org.example.entity.Bag;
+import org.example.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -32,4 +33,11 @@ public interface BagRepository extends JpaRepository<Bag, Long> {
     // Find bags by user email
     @Query("SELECT b FROM Bag b WHERE b.user.email = :email")
     List<Bag> findByUserEmail(@Param("email") String email);
+
+    @Query("""
+    SELECT b FROM Bag b
+    LEFT JOIN FETCH b.items
+    WHERE b.user IN :users
+    """)
+    List<Bag> findWithItemsByUsers(@Param("users") List<User> users);
 }

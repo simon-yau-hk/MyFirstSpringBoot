@@ -20,11 +20,13 @@ import org.example.config.ApplicationConfig.ApplicationInfo;
 @SpringBootApplication
 public class MyFirstSpringBootApplication implements CommandLineRunner {
 
-    @Autowired
-    private ApplicationContext applicationContext;
+    private final ApplicationContext applicationContext;
+    private final ApplicationInfo applicationInfo;
 
-    @Autowired
-    private ApplicationInfo applicationInfo;
+    public MyFirstSpringBootApplication(ApplicationContext applicationContext, ApplicationInfo applicationInfo) {
+        this.applicationContext = applicationContext;
+        this.applicationInfo = applicationInfo;
+    }
 
     /**
      * Main method - entry point of the Spring Boot application
