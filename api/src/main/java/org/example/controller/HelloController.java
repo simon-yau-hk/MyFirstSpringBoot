@@ -1,8 +1,8 @@
 package org.example.controller;
 
+import org.example.common.HelloService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedHashMap;
@@ -19,12 +19,14 @@ import java.util.Map;
 public class HelloController {
 
     private final Environment springEnv;
+    private final HelloService helloService;
 
     @Value("${environment:unknown}")
     private String environment;
 
-    public HelloController(Environment springEnv) {
+    public HelloController(Environment springEnv, HelloService helloService) {
         this.springEnv = springEnv;
+        this.helloService = helloService;
     }
     /**
      * Simple GET endpoint
@@ -32,7 +34,7 @@ public class HelloController {
      */
     @GetMapping("/hello")
     public String hello() {
-        return "Hello, Spring Boot! 🎉";
+        return helloService.greet() + " 🎉";
     }
 
     /**
