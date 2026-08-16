@@ -2,6 +2,7 @@ package org.example.controller;
 
 import org.example.dto.UserDTO;
 import org.example.entity.User;
+import org.example.exception.ResourceNotFoundException;
 import org.example.mapper.UserMapper;
 import org.example.service.UserDTOService;
 import org.example.service.UserService;
@@ -36,6 +37,11 @@ public class UserDTOController {
     public List<UserDTO> getAllUsers() {
         List<UserDTO> users = userDTOService.getAllUsers();
         return users;
+    }
+
+    @GetMapping("/TestThrowException")
+    public List<UserDTO> TestThrowException() {
+        throw new ResourceNotFoundException("User", 1L);
     }
 
   
