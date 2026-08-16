@@ -29,14 +29,14 @@ public class AuthController {
         this.authService = authService;
     }
 
-    @PreAuthorize("permitAll()")
+
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public AuthResponse register(@Valid @RequestBody RegisterRequest request) {
         return authService.register(request);
     }
 
-    @PreAuthorize("permitAll()")
+
     @PostMapping("/login")
     public AuthResponse login(@Valid @RequestBody LoginRequest request) {
         return authService.login(request);
