@@ -1,6 +1,11 @@
 package org.example.controller;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * REST Controller - handles HTTP requests
@@ -12,6 +17,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api") // Base URL path for all endpoints in this controller
 public class HelloController {
 
+    private final Environment springEnv;
+
+    @Value("${environment:unknown}")
+    private String environment;
+
+    public HelloController(Environment springEnv) {
+        this.springEnv = springEnv;
+    }
     /**
      * Simple GET endpoint
      * Accessible at: GET http://localhost:8080/api/hello
@@ -51,6 +64,16 @@ public class HelloController {
         return "User created: " + userRequest.getName() + 
                " with email: " + userRequest.getEmail() + " ✅";
     }
+
+    @GetMapping("/hello/env")
+    public Map<String, String> showEnv() {
+    Map<String, String> info = new LinkedHashMap<>();
+    info.put("environment", environment);
+    info.put("activeProfiles", String.join(",", springEnv.getActiveProfiles()));
+    info.put("defaultProfiles", String.join(",", springEnv.getDefaultProfiles()));
+    info.put("applicationName", springEnv.getProperty("spring.application.name"));
+    return info;
+}
 
     /**
      * Simple DTO (Data Transfer Object) class
