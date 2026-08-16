@@ -2,6 +2,7 @@ package org.example.repository;
 
 import org.example.entity.Bag;
 import org.example.entity.User;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,6 +15,7 @@ import java.util.Optional;
 public interface BagRepository extends JpaRepository<Bag, Long> {
     
     // Find all bags for a specific user
+    @EntityGraph(attributePaths = {"items"})
     List<Bag> findByUserId(Long userId);
     
     // Find bags by name (case-insensitive)
